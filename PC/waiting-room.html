@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>游戏房间 - 璀璨宝石桌游</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen overflow-hidden">
+    <!-- 背景效果 -->
+    <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('https://images.unsplash.com/photo-1618333258404-f3a7795d8180?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80')"></div>
+    
+    <div class="relative min-h-screen flex flex-col">
+        <!-- 顶部导航栏 -->
+        <nav class="py-3 px-6 flex justify-between items-center z-10 bg-gray-900 bg-opacity-90 backdrop-blur-md border-b border-gray-800">
+            <div class="flex items-center">
+                <img src="https://images.unsplash.com/photo-1563293756-4f3c1857c0c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=80&q=80" alt="Logo" class="h-10 w-10 rounded-full">
+                <h1 class="text-2xl font-bold ml-3 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-transparent bg-clip-text">璀璨宝石</h1>
+            </div>
+            
+            <!-- 房间信息 -->
+            <div class="flex items-center">
+                <div class="bg-gray-800 rounded-full py-1 px-4 flex items-center">
+                    <span class="text-sm font-medium mr-2">房间号: #28571</span>
+                    <button class="text-gray-400 hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 用户信息 -->
+            <div class="flex items-center space-x-4">
+                <!-- 退出按钮 -->
+                <button class="text-gray-400 hover:text-white flex items-center text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    退出房间
+                </button>
+                
+                <!-- 用户头像 -->
+                <div class="flex items-center">
+                    <div class="h-10 w-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 p-0.5">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=120&q=80" alt="用户头像" class="rounded-full h-full w-full object-cover">
+                    </div>
+                    <div class="ml-2 hidden md:block">
+                        <p class="text-sm font-medium">水晶守护者</p>
+                        <p class="text-xs text-gray-400">等级 24</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- 主要内容区域 -->
+        <main class="flex-grow grid grid-cols-1 md:grid-cols-4 gap-0 md:gap-4 p-4">
+            <!-- 左侧 - 房间信息和玩家列表 -->
+            <div class="md:col-span-1 space-y-4">
+                <!-- 房间信息卡片 -->
+                <div class="bg-gray-800 bg-opacity-90 backdrop-blur-md rounded-xl overflow-hidden border border-gray-700">
+                    <div class="bg-gradient-to-r from-purple-800 to-pink-800 py-3 px-4">
+                        <h2 class="font-bold">宝石猎人</h2>
+                        <p class="text-sm text-gray-300">标准模式 · 高级难度</p>
+                    </div>
+                    <div class="p-4 space-y-3 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">地图:</span>
+                            <span>经典矿山</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">玩家:</span>
+                            <span>2/4</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">回合时间:</span>
+                            <span>60 秒</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">获胜条件:</span>
+                            <span>默认规则 (15点)</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">隐私:</span>
+                            <span class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                公开
+                            </span>
+                        </div>
+                    </div>
+                    <div class="bg-gray-900 p-3 flex justify-between items-center">
+                        <span class="text-sm text-gray-400">创建于 12:15</span>
+                        <button class="text-xs bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            设置
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 玩家列表卡片 -->
+                <div class="bg-gray-800 bg-opacity-90 backdrop-blur-md rounded-xl overflow-hidden border border-gray-700 h-80">
+                    <div class="bg-gray-900 py-3 px-4 flex justify-between items-center">
+                        <h2 class="font-bold">玩家 (2/4)</h2>
+                        <button class="text-xs bg-purple-700 hover:bg-purple-600 px-2 py-1 rounded-md flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                            </svg>
+                            邀请好友
+                        </button>
+                    </div>
+                    <div class="p-4 space-y-3">
+                        <!-- 房主 -->
+                        <div class="flex items-center p-2 bg-gray-700 rounded-lg">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=120&q=80" alt="玩家头像" class="h-10 w-10 rounded-full">
+                                <span class="absolute top-0 right-0 h-4 w-4 rounded-full bg-yellow-500 border-2 border-gray-700 flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-white" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="ml-3 flex-grow">
+                                <div class="flex items-center">
+                                    <p class="font-medium">水晶守护者</p>
+                                    <span class="ml-2 text-xs bg-yellow-600 px-1.5 py-0.5 rounded-md">房主</span>
+                                </div>
+                                <p class="text-xs text-gray-400">等级 24 · 胜率 68%</p>
+                            </div>
+                            <div class="text-green-500 flex items-center">
+                                <span class="text-xs font-medium mr-1">已准备</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </div>
+                        
+                        <!-- 其他玩家 -->
+                        <div class="flex items-center p-2 bg-gray-700 rounded-lg">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&auto=format&fit=crop&w=120&q=80" alt="玩家头像" class="h-10 w-10 rounded-full">
+                                <span class="absolute top-0 right-0 h-4 w-4 rounded-full bg-green-500 border-2 border-gray-700"></span>
+                            </div>
+                            <div class="ml-3 flex-grow">
+                                <p class="font-medium">蓝钻大师</p>
+                                <p class="text-xs text-gray-400">等级 30 · 胜率 72%</p>
+                            </div>
+                            <div class="text-yellow-500 flex items-center">
+                                <span class="text-xs font-medium mr-1">未准备</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </div>
+                        
+                        <!-- 空位 -->
+                        <div class="flex items-center p-2 bg-gray-700 bg-opacity-50 rounded-lg border border-dashed border-gray-600">
+                            <div class="h-10 w-10 rounded-full bg-gray-600 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-gray-400">等待玩家加入...</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 空位 -->
+                        <div class="flex items-center p-2 bg-gray-700 bg-opacity-50 rounded-lg border border-dashed border-gray-600">
+                            <div class="h-10 w-10 rounded-full bg-gray-600 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-gray-400">等待玩家加入...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 准备/开始游戏按钮 -->
+                <button class="w-full bg-gradient-to-r from-purple-600 to-pink-600 py-4 rounded-lg font-medium text-lg shadow-lg hover:shadow-xl transition duration-300 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    开始游戏
+                </button>
+            </div>
+            
+            <!-- 右侧 - 游戏预览和聊天 -->
+            <div class="md:col-span-3 space-y-4 mt-4 md:mt-0">
+                <!-- 游戏预览卡片 -->
+                <div class="bg-gray-800 bg-opacity-90 backdrop-blur-md rounded-xl overflow-hidden border border-gray-700">
+                    <div class="bg-gray-900 py-3 px-4 flex justify-between items-center">
+                        <h2 class="font-bold">游戏预览</h2>
+                        <div class="flex space-x-2">
+                            <button class="text-xs bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md">
+                                规则说明
+                            </button>
+                            <button class="text-xs bg-purple-700 hover:bg-purple-600 px-2 py-1 rounded-md">
+                                宝石图鉴
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1618333258404-f3a7795d8180?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="游戏预览" class="w-full h-64 md:h-80 object-cover">
+                        
+                        <!-- 游戏简介叠加层 -->
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900 via-gray-900 bg-opacity-90 p-4">
+                            <h3 class="text-lg font-bold mb-1">经典矿山</h3>
+                            <p class="text-sm text-gray-300 mb-3">在这片富饶的矿山中，玩家将收集各种闪耀的宝石，吸引贵族光顾，成为最富有的宝石商人。</p>
+                            
+                            <div class="flex space-x-3">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-red-400 to-red-600 shadow-lg mr-2"></div>
+                                    <span>×7</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-green-400 to-green-600 shadow-lg mr-2"></div>
+                                    <span>×7</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-400 to-blue-600 shadow-lg mr-2"></div>
+                                    <span>×7</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-400 to-purple-600 shadow-lg mr-2"></div>
+                                    <span>×7</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-yellow-300 to-yellow-500 shadow-lg mr-2"></div>
+                                    <span>×5</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 聊天窗口 -->
+                <div class="bg-gray-800 bg-opacity-90 backdrop-blur-md rounded-xl overflow-hidden border border-gray-700 flex flex-col h-80">
+                    <div class="bg-gray-900 py-3 px-4 flex justify-between items-center border-b border-gray-700">
+                        <h2 class="font-bold">房间聊天</h2>
+                        <div class="flex space-x-2">
+                            <span class="text-xs bg-green-900 text-green-400 px-2 py-1 rounded-full">2 在线</span>
+                            <button class="text-gray-400 hover:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 聊天内容 -->
+                    <div class="flex-grow p-4 overflow-y-auto space-y-3">
+                        <!-- 系统消息 -->
+                        <div class="text-center">
+                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded-full">系统消息: 蓝钻大师 加入了房间</span>
+                        </div>
+                        
+                        <!-- 房主消息 -->
+                        <div class="flex items-start">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=120&q=80" alt="玩家头像" class="h-8 w-8 rounded-full mt-1">
+                            <div class="ml-2">
+                                <div class="flex items-center">
+                                    <p class="text-sm font-medium text-purple-400">水晶守护者</p>
+                                    <span class="ml-2 text-xs text-yellow-600">房主</span>
+                                </div>
+                                <div class="bg-gray-700 rounded-lg rounded-tl-none p-2 mt-1 text-sm">
+                                    大家好！准备开始游戏了，有什么问题可以在这里提出
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 玩家消息 -->
+                        <div class="flex items-start">
+                            <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&auto=format&fit=crop&w=120&q=80" alt="玩家头像" class="h-8 w-8 rounded-full mt-1">
+                            <div class="ml-2">
+                                <div class="flex items-center">
+                                    <p class="text-sm font-medium text-blue-400">蓝钻大师</p>
+                                </div>
+                                <div class="bg-gray-700 rounded-lg rounded-tl-none p-2 mt-1 text-sm">
+                                    我是第一次玩，这次用的是哪个版本的规则？
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 房主消息 -->
+                        <div class="flex items-start">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=120&q=80" alt="玩家头像" class="h-8 w-8 rounded-full mt-1">
+                            <div class="ml-2">
+                                <div class="flex items-center">
+                                    <p class="text-sm font-medium text-purple-400">水晶守护者</p>
+                                    <span class="ml-2 text-xs text-yellow-600">房主</span>
+                                </div>
+                                <div class="bg-gray-700 rounded-lg rounded-tl-none p-2 mt-1 text-sm">
+                                    使用默认规则，15分获胜，可以看右上角的规则说明
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 系统消息 -->
+                        <div class="text-center">
+                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded-full">系统消息: 水晶守护者 已准备</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 聊天输入框 -->
+                    <div class="p-3 border-t border-gray-700">
+                        <div class="flex">
+                            <input type="text" placeholder="输入消息..." class="flex-grow px-4 py-2 bg-gray-700 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            <button class="bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-2 rounded-r-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- 页面预览边框 -->
+    <div class="fixed top-4 left-4 bg-gray-800 text-white text-xs py-1 px-2 rounded-md opacity-70">
+        游戏房间等待页
+    </div>
+</body>
+</html>

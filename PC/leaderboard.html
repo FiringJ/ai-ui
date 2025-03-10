@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>排行榜 - 璀璨宝石桌游</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen overflow-hidden">
+    <!-- 背景效果 -->
+    <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('https://images.unsplash.com/photo-1563997302913-0df916e21e21?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80')"></div>
+    
+    <div class="relative min-h-screen flex flex-col">
+        <!-- 顶部导航栏 -->
+        <nav class="py-3 px-6 flex justify-between items-center z-10 bg-gray-900 bg-opacity-90 backdrop-blur-md border-b border-gray-800">
+            <div class="flex items-center">
+                <img src="https://images.unsplash.com/photo-1563293756-4f3c1857c0c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=80&q=80" alt="Logo" class="h-10 w-10 rounded-full">
+                <h1 class="text-2xl font-bold ml-3 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-transparent bg-clip-text">璀璨宝石</h1>
+            </div>
+            
+            <!-- 导航链接 -->
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#" class="text-gray-400 hover:text-white transition duration-200">游戏大厅</a>
+                <a href="#" class="text-white font-medium transition duration-200 border-b-2 border-purple-500 pb-1">排行榜</a>
+                <a href="#" class="text-gray-400 hover:text-white transition duration-200">商城</a>
+                <a href="#" class="text-gray-400 hover:text-white transition duration-200">社区</a>
+                <a href="#" class="text-gray-400 hover:text-white transition duration-200">帮助</a>
+            </div>
+            
+            <!-- 用户信息 -->
+            <div class="flex items-center space-x-4">
+                <!-- 钻石货币 -->
+                <div class="flex items-center bg-gray-800 rounded-full py-1 px-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                    <span class="ml-1 text-sm font-medium">2,450</span>
+                </div>
+                
+                <!-- 用户头像 -->
+                <div class="flex items-center">
+                    <div class="h-10 w-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 p-0.5">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=120&q=80" alt="用户头像" class="rounded-full h-full w-full object-cover">
+                    </div>
+                    <div class="ml-2 hidden md:block">
+                        <p class="text-sm font-medium">水晶守护者</p>
+                        <p class="text-xs text-gray-400">等级 24</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- 主要内容区域 -->
+        <main class="flex-grow container mx-auto px-4 py-6">
+            <!-- 页面标题 -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-8">
+                <div>
+                    <h2 class="text-3xl font-bold mb-2">排行榜</h2>
+                    <p class="text-gray-400">查看顶尖玩家的表现和您在璀璨宝石中的排名</p>
+                </div>
+                
+                <!-- 下拉框筛选 -->
+                <div class="flex space-x-3 mt-4 md:mt-0">
+                    <select class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <option>全部赛季</option>
+                        <option>第三赛季</option>
+                        <option>第二赛季</option>
+                        <option>第一赛季</option>
+                    </select>
+                    
+                    <select class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <option>所有服务器</option>
+                        <option>亚洲服务器</option>
+                        <option>欧洲服务器</option>
+                        <option>美洲服务器</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- 排行榜分类选项卡 -->
+            <div class="mb-6">
+                <div class="border-b border-gray-700">
+                    <nav class="flex space-x-8">
+                        <button class="py-4 px-1 border-b-2 border-purple-500 font-medium text-white">
+                            周榜
+                        </button>
+                        <button class="py-4 px-1 border-b-2 border-transparent font-medium text-gray-400 hover:text-white">
+                            月榜
+                        </button>
+                        <button class="py-4 px-1 border-b-2 border-transparent font-medium text-gray-400 hover:text-white">
+                            赛季榜
+                        </button>
+                        <button class="py-4 px-1 border-b-2 border-transparent font-medium text-gray-400 hover:text-white">
+                            总榜
+                        </button>
+                        <button class="py-4 px-1 border-b-2 border-transparent font-medium text-gray-400 hover:text-white">
+                            好友榜
+                        </button>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- 顶级玩家展示 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <!-- 第二名 -->
+                <div class="bg-gray-800 bg-opacity-80 backdrop-blur-md rounded-xl overflow-hidden border border-gray-700 transform hover:scale-105 transition-all duration-300 md:mt-8">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="玩家头像" class="w-full h-48 object-cover">
+                        <div class="absolute top-4 left-4 w-12 h-12 rounded-full bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center text-gray-900 text-xl font-bold shadow-lg border-4 border-gray-800">2</div>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-lg mb-1">红宝石女王</h3>
+                        <p class="text-gray-400 text-sm mb-3">等级 45 · 胜率 72%</p>
+                        <div class="flex justify-center space-x-2 mb-3">
+                            <div class="bg-gray-700 rounded-full px-3 py-1 text-sm flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-500 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                                <span>1,180 积分</span>
+                            </div>
+                            <div class="bg-gray-700 rounded-full px-3 py-1 text-sm flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-500 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                <span>128 场胜利</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-center space-x-1">
+                            <div class="w-6 h-6 rounded-full bg-gradient-to-br from-yellow-300 to-yellow-500 flex items-center justify-center text-xs font-bold" title="黄金宝石大师">G</div>
+                            <div class="w-6 h-6 rounded-full bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center text-xs font-bold" title="红宝石收藏家">R</div>
+                            <div class="w-6 h-6 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-xs font-bold" title="紫水晶鉴赏家">A</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 第一名 -->
+                <div class="bg-gray-800 bg-opacity-80 backdrop-blur-md rounded-xl overflow-hidden border-2 border-yellow-500 transform hover:scale-105 transition-all duration-300 md:-mt-6">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-b from-yellow-400 to-transparent opacity-20"></div>
+                        <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="玩家头像" class="w-full h-56 object-cover">
+                        <div class="absolute top-4 left-4 w-16 h-16 rounded-full bg-gradient-to-br from-yellow-300 to-yellow-500 flex items-center justify-center text-gray-900 text-2xl font-bold shadow-lg border-4 border-gray-800">1</div>
+                        <div class="absolute top-4 right-4">
+                            <div class="bg-yellow-500 text-gray-900 px-3 py-1 rounded-full font-bold text-sm flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                                </svg>
+                                本周冠军
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 text-center">
+                        <h3 class="font-bold text-xl mb-1">蓝钻大师</h3>
+                        <p class="text-gray-400 text-sm mb-3">等级 50 · 胜率 78%</p>
+                        <div class="flex justify-center space-x-2 mb-3">
+                            <div class="bg-yellow-500 bg-opacity-20 rounded-full px-3 py-1 text-sm flex items-center text-yellow-300 border border-yellow-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-500 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                                <span>1,250 积分</span>
+                            </div>
+                            <div class="bg-green-500 bg-opacity-20 rounded-full px-3 py-1 text-sm flex items-center text-green-300 border border-green-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-500 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                <span>156 场胜利</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-center space-x-1">
+                            <div class="w-7 h-7 rounded-full bg-gradient-to-br from-yellow-300 to-yellow-500 flex items-center justify-center text-xs font-bold" title="黄金宝石大师">G</div>
+                            <div class="w-7 h-7 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-xs font-bold" title="蓝宝石收藏家">S</div>
+                            <div class="w-7 h-7 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-xs font-bold" title="祖母绿鉴赏家">E</div>
+                            <div class="w-7 h-7 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-xs font-bold" title="紫水晶鉴赏家">A</div>
+                            <div class="w-7 h-7 rounded-full bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center text-xs font-bold" title="红宝石收藏家">R</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 第三名 -->
+                <div class="bg-gray-800 bg-opacity-80 backdrop-blur-md rounded-xl overflow-hidden border border-gray-700 transform hover:scale-105 transition-all duration-300 md:mt-8">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="玩家头像" class="w-full h-48 object-cover">
+                        <div class="absolute top-4 left-4 w-12 h-12 rounded-full bg-gradient-to-br from-yellow-600 to-yellow-800 flex items-center justify-center text-yellow-100 text-xl font-bold shadow-lg border-4 border-gray-800">3</div>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-lg mb-1">翡翠猎手</h3>
+                        <p class="text-gray-400 text-sm mb-3">等级 41 · 胜率 68%</p>
+                        <div class="flex justify-center space-x-2 mb-3">
+                            <div class="bg-gray-700 rounded-full px-3 py-1 text-sm flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-500 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                                <span>1,120 积分</span>
+                            </div>
+                            <div class="bg-gray-700 rounded-full px-3 py-1 text-sm flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-500 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                <span>112 场胜利</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-center space-x-1">
+                            <div class="w-6 h-6 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-xs font-bold" title="祖母绿鉴赏家">E</div>
+                            <div class="w-6 h-6 rounded-full bg-gradient-to-br from-yellow-300 to-yellow-500 flex items-center justify-center text-xs font-bold" title="黄金宝石大师">G</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 排行榜表格 -->
+            <div class="bg-gray-800 bg-opacity-80 backdrop-blur-md rounded-xl overflow-hidden border border-gray-700 mb-8">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-700">
+                        <thead class="bg-gray-900">
+                            <tr>
+                                <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">排名</th>
+                                <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">玩家</th>
+                                <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">级别</th>
+                                <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">积分</th>
+                                <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">胜率</th>
+                                <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">游戏场次</th>
+                                <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">成就</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-700">
+                            <!-- 第1行 -->
+                            <tr class="bg-yellow-900 bg-opacity-20">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-300 to-yellow-500 flex items-center justify-center text-gray-900 font-bold">1</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="h-10 w-10 rounded-full flex-shrink-0">
+                                            <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="玩家头像" class="h-10 w-10 rounded-full">
+                                        </div>
+                                        <div class="ml-4">
+                                            <div class="font-medium">蓝钻大师</div>
+                                            <div class="text-gray-400 text-sm">高级玩家</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm">50</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-yellow-400">1,250</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm">78%</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm">200</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex space-x-1">
+                                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-yellow-300 to-yellow-500 flex items-center justify-center text-xs font-bold" title="黄金宝石大师">G</div>
+                                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-xs font-bold" title="蓝宝石收藏家">S</div>
+                                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-xs font-bold" title="祖母绿鉴赏家">E</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <!-- 第2行 -->
+                            <tr class="bg-gray-700 bg-opacity-20">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center text-gray-900 font-bold">2</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="h-10 w-10 rounded-full flex-shrink-0">
+                                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="玩家头像" class="h-10 w-10 rounded-full">
+                                        </div>
+                                        <div class="ml-4">
+                                            <div class="font-medium">红宝石女王</div>
+                                            <div class="text-gray-400 text-sm">高级玩家</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm">45</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-green-400">1,180</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm">72%</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm">178</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex space-x-1">
+                                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-yellow-300 to-yellow-500 flex items-center justify-center text-xs font-bold" title="黄金宝石大师">G</div>
+                                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center text-xs font-bold" title="红宝石收藏家">R</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <!-- 第3行 -->
+                            <tr class="bg-amber-800 bg-opacity-10">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-600 to-yellow-800 flex items-center justify-center text-yellow-100 font-bold">3</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="h-10 w-10 rounded-full flex-shrink-0">
+                                            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="玩家头像" class="h-10 w-10 rounded-full">
+                                        </div>
+                                        <div class="ml-4">
+                                            <div class="font-medium">翡翠猎手</div>
+                                            <div class="text-gray-400 text-sm">高级玩家</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm">41</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-green-400">1,120</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm">68%</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm">165</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex space-x-1">
+                                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-xs font-bold" title="祖母绿鉴赏家">E</div>
+                                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-yellow-300 to-yellow-500 flex items-center justify-center text-xs font-bold" title="黄金宝石大师">G</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <!-- 第4行 -->
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-gray-300 font-bold">4</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="h-10 w-10 rounded-full flex-shrink-0">
+                                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="玩家头像" class="h-10 w-10 rounded-full">
+                                        </div>
+                                        <div class="ml-4">
+                                            <div class="font-medium">璀璨之心</div>
+                                            <div class="text-gray-400 text-sm">中级玩家</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm">38</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium">985</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm">65%</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm">150</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex space-x-1">
+                                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-xs font-bold" title="紫水晶鉴赏家">A</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <!-- 第5行 -->
+                            <tr class="bg-purple-700 bg-opacity-20">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-gray-300 font-bold">5</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="h-10 w-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 p-0.5 flex-shrink-0">
+                                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="玩家头像" class="h-full w-full rounded-full object-cover">
+                                        </div>
+                                        <div class="ml-4">
+                                          <div class="font-medium">水晶守护者</div>
+                                          <div class="text-gray-400 text-sm">中级玩家</div>
+                                      </div>
+                                  </div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="text-sm">24</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="text-sm font-medium">870</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="text-sm">62%</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="text-sm">120</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="flex space-x-1">
+                                      <div class="w-6 h-6 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-xs font-bold" title="蓝宝石收藏家">S</div>
+                                  </div>
+                              </td>
+                          </tr>
+                          
+                          <!-- 第6行 -->
+                          <tr>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-gray-300 font-bold">6</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="flex items-center">
+                                      <div class="h-10 w-10 rounded-full flex-shrink-0">
+                                          <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="玩家头像" class="h-10 w-10 rounded-full">
+                                      </div>
+                                      <div class="ml-4">
+                                          <div class="font-medium">宝石专家</div>
+                                          <div class="text-gray-400 text-sm">中级玩家</div>
+                                      </div>
+                                  </div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="text-sm">36</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="text-sm font-medium">842</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="text-sm">60%</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="text-sm">140</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="flex space-x-1">
+                                      <div class="w-6 h-6 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-xs font-bold" title="祖母绿鉴赏家">E</div>
+                                  </div>
+                              </td>
+                          </tr>
+                          
+                          <!-- 第7行 -->
+                          <tr>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-gray-300 font-bold">7</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="flex items-center">
+                                      <div class="h-10 w-10 rounded-full flex-shrink-0">
+                                          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="玩家头像" class="h-10 w-10 rounded-full">
+                                      </div>
+                                      <div class="ml-4">
+                                          <div class="font-medium">钻石收藏家</div>
+                                          <div class="text-gray-400 text-sm">中级玩家</div>
+                                      </div>
+                                  </div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="text-sm">32</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="text-sm font-medium">815</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="text-sm">58%</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="text-sm">136</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="flex space-x-1">
+                                      <div class="w-6 h-6 rounded-full bg-gradient-to-br from-yellow-300 to-yellow-500 flex items-center justify-center text-xs font-bold" title="黄金宝石大师">G</div>
+                                  </div>
+                              </td>
+                          </tr>
+                          
+                          <!-- 第8行 -->
+                          <tr>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-gray-300 font-bold">8</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="flex items-center">
+                                      <div class="h-10 w-10 rounded-full flex-shrink-0">
+                                          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="玩家头像" class="h-10 w-10 rounded-full">
+                                      </div>
+                                      <div class="ml-4">
+                                          <div class="font-medium">紫晶魔法师</div>
+                                          <div class="text-gray-400 text-sm">中级玩家</div>
+                                      </div>
+                                  </div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="text-sm">30</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="text-sm font-medium">788</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="text-sm">55%</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="text-sm">130</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="flex space-x-1">
+                                      <div class="w-6 h-6 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-xs font-bold" title="紫水晶鉴赏家">A</div>
+                                  </div>
+                              </td>
+                          </tr>
+                          
+                          <!-- 第9行 -->
+                          <tr>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-gray-300 font-bold">9</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="flex items-center">
+                                      <div class="h-10 w-10 rounded-full flex-shrink-0">
+                                          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="玩家头像" class="h-10 w-10 rounded-full">
+                                      </div>
+                                      <div class="ml-4">
+                                          <div class="font-medium">宝石守望者</div>
+                                          <div class="text-gray-400 text-sm">初级玩家</div>
+                                      </div>
+                                  </div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="text-sm">28</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="text-sm font-medium">765</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="text-sm">52%</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="text-sm">123</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="flex space-x-1">
+                                      <div class="w-6 h-6 rounded-full bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center text-xs font-bold" title="红宝石收藏家">R</div>
+                                  </div>
+                              </td>
+                          </tr>
+                          
+                          <!-- 第10行 -->
+                          <tr>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-gray-300 font-bold">10</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="flex items-center">
+                                      <div class="h-10 w-10 rounded-full flex-shrink-0">
+                                          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="玩家头像" class="h-10 w-10 rounded-full">
+                                      </div>
+                                      <div class="ml-4">
+                                          <div class="font-medium">翠绿矿工</div>
+                                          <div class="text-gray-400 text-sm">初级玩家</div>
+                                      </div>
+                                  </div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="text-sm">26</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="text-sm font-medium">742</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="text-sm">50%</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="text-sm">118</div>
+                              </td>
+                              <td class="px-6 py-4 whitespace-nowrap">
+                                  <div class="flex space-x-1">
+                                      <div class="w-6 h-6 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-xs font-bold" title="蓝宝石收藏家">S</div>
+                                  </div>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+          
+          <!-- 分页和个人排名 -->
+          <div class="flex flex-col md:flex-row justify-between items-center">
+              <!-- 分页控件 -->
+              <div class="flex items-center space-x-2 mb-4 md:mb-0">
+                  <button class="px-4 py-2 bg-gray-800 rounded-lg text-gray-400 hover:bg-gray-700 hover:text-white transition duration-200">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                  </button>
+                  <button class="w-10 h-10 rounded-lg flex items-center justify-center bg-purple-700 text-white font-medium">1</button>
+                  <button class="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-800 text-gray-300 hover:bg-gray-700 transition duration-200">2</button>
+                  <button class="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-800 text-gray-300 hover:bg-gray-700 transition duration-200">3</button>
+                  <span class="text-gray-500">...</span>
+                  <button class="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-800 text-gray-300 hover:bg-gray-700 transition duration-200">10</button>
+                  <button class="px-4 py-2 bg-gray-800 rounded-lg text-gray-400 hover:bg-gray-700 hover:text-white transition duration-200">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                      </svg>
+                  </button>
+              </div>
+              
+              <!-- 个人排名 -->
+              <div class="bg-gray-800 bg-opacity-80 backdrop-blur-md rounded-xl px-6 py-3 flex items-center border border-purple-500">
+                  <span class="text-gray-400 mr-3">您的排名:</span>
+                  <div class="w-8 h-8 rounded-full bg-purple-700 flex items-center justify-center font-bold mr-3">5</div>
+                  <div class="flex items-center mr-3">
+                      <div class="h-8 w-8 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 p-0.5 flex-shrink-0">
+                          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="您的头像" class="h-full w-full rounded-full object-cover">
+                      </div>
+                      <div class="ml-2">
+                          <div class="font-medium">水晶守护者</div>
+                      </div>
+                  </div>
+                  <div class="text-yellow-400 font-medium">870 积分</div>
+              </div>
+          </div>
+          
+          <!-- 成就说明 -->
+          <div class="mt-10 bg-gray-800 bg-opacity-80 backdrop-blur-md rounded-xl overflow-hidden border border-gray-700 p-6">
+              <h3 class="text-xl font-bold mb-4">成就图例</h3>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div class="flex items-center">
+                      <div class="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-300 to-yellow-500 flex items-center justify-center text-sm font-bold mr-3">G</div>
+                      <div>
+                          <p class="font-medium">黄金宝石大师</p>
+                          <p class="text-sm text-gray-400">累计获得100枚黄金宝石</p>
+                      </div>
+                  </div>
+                  <div class="flex items-center">
+                      <div class="w-8 h-8 rounded-full bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center text-sm font-bold mr-3">R</div>
+                      <div>
+                          <p class="font-medium">红宝石收藏家</p>
+                          <p class="text-sm text-gray-400">累计获得100枚红宝石</p>
+                      </div>
+                  </div>
+                  <div class="flex items-center">
+                      <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-sm font-bold mr-3">S</div>
+                      <div>
+                          <p class="font-medium">蓝宝石收藏家</p>
+                          <p class="text-sm text-gray-400">累计获得100枚蓝宝石</p>
+                      </div>
+                  </div>
+                  <div class="flex items-center">
+                      <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-sm font-bold mr-3">E</div>
+                      <div>
+                          <p class="font-medium">祖母绿鉴赏家</p>
+                          <p class="text-sm text-gray-400">累计获得100枚祖母绿</p>
+                      </div>
+                  </div>
+                  <div class="flex items-center">
+                      <div class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-sm font-bold mr-3">A</div>
+                      <div>
+                          <p class="font-medium">紫水晶鉴赏家</p>
+                          <p class="text-sm text-gray-400">累计获得100枚紫水晶</p>
+                      </div>
+                  </div>
+                  <div class="flex items-center">
+                      <div class="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-red-400 flex items-center justify-center text-sm font-bold mr-3">M</div>
+                      <div>
+                          <p class="font-medium">宝石收藏大师</p>
+                          <p class="text-sm text-gray-400">获得所有宝石类型收藏家称号</p>
+                      </div>
+                  </div>
+              </div>
+              
+              <div class="mt-6 flex items-center justify-center">
+                  <a href="#" class="text-purple-400 hover:text-purple-300 flex items-center">
+                      <span>查看所有可获得的成就</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                      </svg>
+                  </a>
+              </div>
+          </div>
+      </main>
+      
+      <!-- 页脚 -->
+      <footer class="py-6 px-8 bg-gray-900 bg-opacity-80 backdrop-blur-md text-gray-400 text-sm z-10 border-t border-gray-800">
+          <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center">
+              <p>© 2023 璀璨宝石桌游 版权所有</p>
+              <div class="flex space-x-4 mt-4 md:mt-0">
+                  <a href="#" class="hover:text-purple-400">服务条款</a>
+                  <a href="#" class="hover:text-purple-400">隐私政策</a>
+                  <a href="#" class="hover:text-purple-400">联系我们</a>
+              </div>
+          </div>
+      </footer>
+  </div>
+  
+  <!-- 页面预览边框 -->
+  <div class="fixed top-4 left-4 bg-gray-800 text-white text-xs py-1 px-2 rounded-md opacity-70">
+      排行榜页
+  </div>
+</body>
+</html>
