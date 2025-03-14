@@ -8,6 +8,7 @@ dist
 build
 dist-ssr
 *.local
+.history
 
 # 日志
 logs
