@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MBTI测试 - MBTI+荣格八维</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+    }
+
+    .status-bar {
+      height: 44px;
+      background-color: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 16px;
+      font-size: 12px;
+      color: #000;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .content {
+      padding: 20px;
+      overflow-y: auto;
+      height: calc(100vh - 44px);
+    }
+
+    .progress-bar {
+      height: 8px;
+      background-color: #e0e0e0;
+      border-radius: 4px;
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      width: 35%;
+      border-radius: 4px;
+    }
+
+    .question-card {
+      background-color: white;
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .option-card {
+      background-color: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      transition: all 0.2s;
+    }
+
+    .option-card:hover,
+    .option-card.selected {
+      border-color: #6a11cb;
+      background-color: #f0e7ff;
+    }
+
+    .option-card.selected {
+      box-shadow: 0 4px 12px rgba(106, 17, 203, 0.15);
+    }
+
+    .radio-button {
+      width: 22px;
+      height: 22px;
+      border: 2px solid #d0d0d0;
+      border-radius: 50%;
+      margin-right: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .option-card.selected .radio-button {
+      border-color: #6a11cb;
+      background-color: #6a11cb;
+    }
+
+    .option-card.selected .radio-button::after {
+      content: '';
+      width: 10px;
+      height: 10px;
+      background-color: white;
+      border-radius: 50%;
+    }
+
+    .btn-next {
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      padding: 16px 0;
+      width: 100%;
+      font-weight: bold;
+      box-shadow: 0 6px 15px rgba(106, 17, 203, 0.2);
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 状态栏 -->
+  <div class="status-bar">
+    <div>9:41</div>
+    <div>
+      <i class="fas fa-signal"></i>
+      <i class="fas fa-wifi ml-2"></i>
+      <i class="fas fa-battery-full ml-2"></i>
+    </div>
+  </div>
+
+  <!-- 内容区域 -->
+  <div class="content">
+    <div class="flex items-center mb-6">
+      <a href="#" class="mr-4"><i class="fas fa-arrow-left text-gray-600"></i></a>
+      <h1 class="text-xl font-bold">MBTI人格测试</h1>
+    </div>
+
+    <!-- 进度条 -->
+    <div class="flex justify-between text-sm text-gray-500 mb-2">
+      <span>问题 32/93</span>
+      <span>35% 完成</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+
+    <!-- 问题卡片 -->
+    <div class="question-card">
+      <div class="mb-4">
+        <span class="text-xs font-medium px-3 py-1 bg-purple-100 text-purple-700 rounded-full">E vs I 维度</span>
+      </div>
+      <h3 class="text-lg font-bold mb-6">在社交场合中，你通常更喜欢：</h3>
+
+      <!-- 选项 -->
+      <div class="option-card selected">
+        <div class="radio-button"></div>
+        <span>成为对话的中心，结识很多新朋友</span>
+      </div>
+
+      <div class="option-card">
+        <div class="radio-button"></div>
+        <span>与少数几个人进行深入交流</span>
+      </div>
+
+      <div class="option-card">
+        <div class="radio-button"></div>
+        <span>在热闹的环境中观察他人</span>
+      </div>
+
+      <div class="option-card">
+        <div class="radio-button"></div>
+        <span>寻找安静的角落或与熟人交谈</span>
+      </div>
+
+      <div class="option-card">
+        <div class="radio-button"></div>
+        <span>在不同的小群体间自由移动</span>
+      </div>
+    </div>
+
+    <!-- 导航按钮 -->
+    <div class="flex justify-between mb-6">
+      <button class="text-gray-600 font-medium">
+        <i class="fas fa-chevron-left mr-2"></i>上一题
+      </button>
+      <button class="text-gray-600 font-medium">
+        跳过<i class="fas fa-chevron-right ml-2"></i>
+      </button>
+    </div>
+
+    <button class="btn-next">
+      下一题
+    </button>
+
+    <div class="text-center text-gray-500 text-xs mt-4 mb-10">
+      请选择最符合你日常行为的选项，而不是理想状态
+    </div>
+  </div>
+</body>
+
+</html>
